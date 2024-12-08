@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Fact</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+        }
+        form {
+            width: 50%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Add New Fact</h1>
+    </header>
+
+    <form id="addFactForm">
+        <label for="factTitle">Fact Title:</label>
+        <input type="text" id="factTitle" name="factTitle" required>
+
+        <label for="factDescription">Fact Description:</label>
+        <textarea id="factDescription" name="factDescription" rows="4" required></textarea>
+
+        <button type="submit">Submit Fact</button>
+    </form>
+
+    <script>
+        document.getElementById('addFactForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form from submitting
+
+            const factTitle = document.getElementById('factTitle').value;
+            const factDescription = document.getElementById('factDescription').value;
+
+            // Retrieve existing facts or initialize an empty array
+            let facts = JSON.parse(localStorage.getItem('facts')) || [];
+
+            // Add new fact to the array
+            facts.push({
+                title: factTitle,
+                description: factDescription
+            });
+
+            // Save the updated array back to localStorage
+            localStorage.setItem('facts', JSON.stringify(facts));
+
+            // Redirect to the fact page
+            window.location.href = 'fact.html';
+        });
+    </script>
+</body>
+</html>

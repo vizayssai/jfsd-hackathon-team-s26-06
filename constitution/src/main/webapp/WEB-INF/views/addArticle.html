@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add/Edit Article</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+        }
+        .container {
+            width: 60%;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        input, textarea {
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Add/Edit Article</h1>
+    </header>
+    <div class="container">
+        <form id="articleForm">
+            <input type="hidden" id="articleId">
+            <label for="title">Title:</label>
+            <input type="text" id="title" required>
+            <label for="content">Content:</label>
+            <textarea id="content" rows="5" required></textarea>
+
+            <label for="imageUpload">Upload Images:</label>
+            <input type="file" id="imageUpload" accept="image/*" multiple>
+
+            <label for="videoUpload">Upload Videos:</label>
+            <input type="file" id="videoUpload" accept="video/*" multiple>
+
+            <button type="submit">Save Article</button>
+        </form>
+    </div>
+    <script>
+        const editArticle = JSON.parse(localStorage.getItem('editArticle')) || null;
+        const articles = JSON.parse(localStorage.getItem('articles')) || [];
+
+        if (editArticle) {
+            document.getElementById('articleId').value = editArticle.id;
+            document.getElementById('title').value = editArticle.title;
+            document.getElementById('content').value = editArticle.content;
+        }
+
+        document.getElementById('articleForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const id = document.getElementById('articleId').value || new Date().getTime();
+            const title = document.getElementById('title').value;
+            const content = document.getElementById('content').value;
+
+            // Retrieve uploaded files
+            const imageFiles = Array.from(document.getElementById('imageUpload').files).map(file => file.name);
+            const videoFiles = Array.from(document.getElementById('videoUpload').files).map(file => file.name);
+
+            if (editArticle) {
+                const index = articles.findIndex(article => article.id === editArticle.id);
+                articles[index] = { id, title, content, images: imageFiles, videos: videoFiles };
+            } else {
+                articles.push({ id, title, content, images: imageFiles, videos: videoFiles });
+            }
+
+            localStorage.setItem('articles', JSON.stringify(articles));
+            localStorage.removeItem('editArticle');
+            window.location.href = 'manageArticles.html';
+        });
+    </script>
+</body>
+</html>

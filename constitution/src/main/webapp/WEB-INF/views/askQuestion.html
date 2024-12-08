@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ask Question</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+        }
+        form {
+            width: 50%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Ask a Question</h1>
+    </header>
+
+    <form id="askQuestionForm">
+        <label for="questionTitle">Question Title:</label>
+        <input type="text" id="questionTitle" name="questionTitle" required>
+
+        <label for="questionDescription">Question Description:</label>
+        <textarea id="questionDescription" name="questionDescription" rows="4" required></textarea>
+
+        <button type="submit">Submit Question</button>
+    </form>
+
+    <script>
+        document.getElementById('askQuestionForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form from submitting
+
+            const questionTitle = document.getElementById('questionTitle').value;
+            const questionDescription = document.getElementById('questionDescription').value;
+
+            // Store the question in a global or persistent variable (for simplicity, storing in localStorage)
+            localStorage.setItem('newQuestion', JSON.stringify({
+                title: questionTitle,
+                description: questionDescription
+            }));
+
+            // Redirect to the Admin dashboard (or anywhere you want)
+            window.location.href = 'fact.html';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url('https://m.media-amazon.com/images/I/51HAk+0kHJL._SY445_SX342_.jpg');
+    background-size: 80% auto; /* Increase width to 150% and keep height automatic */
+    background-repeat: no-repeat; /* Prevent tiling */
+    background-attachment: fixed; /* Keeps the image fixed while scrolling */
+    background-position: center; /* Centers the image horizontally */
+    color: #333;
+}
+        header {
+            background-color: rgba(76, 175, 80, 0.9); /* Semi-transparent green background */
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+        }
+        form {
+            width: 50%;
+            margin: 50px auto; /* Adds some space from the top */
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Login</h1>
+    </header>
+    <form id="loginForm">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+
+        <label for="role">Login as:</label>
+        <select id="role" name="role" required>
+            <option value="admin">Admin</option>
+            <option value="citizen">Citizen</option>
+        </select>
+
+        <button type="submit">Login</button>
+    </form>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form from submitting
+
+            const role = document.getElementById('role').value;
+            if (role === 'admin') {
+                window.location.href = 'admin-dashboard.html';  // Redirect to Admin Dashboard
+            } else if (role === 'citizen') {
+                window.location.href = 'citizen-dashboard.html';  // Redirect to Citizen Dashboard
+            }
+        });
+    </script>
+</body>
+</html>

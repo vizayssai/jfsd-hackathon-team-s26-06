@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Facts</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: relative;
+        }
+        header button {
+            position: absolute;
+            right: 20px; /* Position the button to the right */
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 10px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        header button:hover {
+            background-color: #d32f2f;
+        }
+        .fact-card {
+            width: 60%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .fact-card h3 {
+            margin: 0 0 10px;
+        }
+        .fact-card button {
+            padding: 10px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .fact-card button:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>View All Facts</h1>
+        <button onclick="window.location.href='admin-dashboard.html';">Back</button>
+    </header>
+
+    <div id="factContainer">
+        <!-- Fact cards will be dynamically added here -->
+    </div>
+
+    <script>
+        // Retrieve stored facts from localStorage
+        const facts = JSON.parse(localStorage.getItem('facts')) || [];
+
+        const factContainer = document.getElementById('factContainer');
+
+        if (facts.length === 0) {
+            factContainer.innerHTML = '<p style="text-align:center;">No facts available. Please add some facts first.</p>';
+        } else {
+            // Render all facts with delete buttons
+            facts.forEach((fact, index) => {
+                const factCard = document.createElement('div');
+                factCard.classList.add('fact-card');
+
+                factCard.innerHTML = `
+                    <div>
+                        <h3>${fact.title}</h3>
+                        <p>${fact.description}</p>
+                    </div>
+                    <button onclick="deleteFact(${index})">Delete</button>
+                `;
+
+                factContainer.appendChild(factCard);
+            });
+        }
+
+        // Function to delete a fact
+        function deleteFact(index) {
+            // Remove the fact at the given index
+            facts.splice(index, 1);
+
+            // Update localStorage
+            localStorage.setItem('facts', JSON.stringify(facts));
+
+            // Reload the page to reflect changes
+            window.location.reload();
+        }
+    </script>
+</body>
+</html>

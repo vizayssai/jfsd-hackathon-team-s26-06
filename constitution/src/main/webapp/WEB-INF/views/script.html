@@ -1,0 +1,15 @@
+<script>
+    
+    document.querySelector("form").addEventListener("submit", function(e) {
+        e.preventDefault(); 
+
+        // Get the role selected by the user
+        const role = document.querySelector('input[name="role"]:checked').value;
+
+        if (role === "admin") {
+            window.location.href = "admin-dashboard.html"; // Redirect to Admin Dashboard
+        } else {
+            window.location.href = "citizen-dashboard.html"; // Redirect to Citizen Dashboard
+        }
+    });
+</script>
